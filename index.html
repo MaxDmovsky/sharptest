@@ -11,11 +11,22 @@
 </head>
 <body>
 
-<h1>🧠 Мини-задачи</h1>
+<header class="header">
+    <h1>🧠 Мини-задачи</h1>
+    <button type="button" class="task-list-toggle" id="task-list-toggle" aria-label="Список задач">
+        <span class="task-list-toggle-icon">≡</span>
+        <span class="task-list-toggle-text">Список задач</span>
+    </button>
+</header>
 
 <div class="layout">
     <div id="task-content" class="task-content"></div>
-    <aside class="task-list-wrap">
+    <div class="task-list-overlay" id="task-list-overlay" aria-hidden="true"></div>
+    <aside class="task-list-wrap" id="task-list-wrap">
+        <div class="task-list-header">
+            <span>Задачи</span>
+            <button type="button" class="task-list-close" id="task-list-close" aria-label="Закрыть">×</button>
+        </div>
         <div id="task-list" class="task-list"></div>
     </aside>
 </div>

@@ -4,8 +4,40 @@ body {
     background: #f5f5f5;
 }
 
-h1 {
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
     margin-bottom: 10px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.task-list-toggle {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: #3390ec;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.task-list-toggle:active {
+    background: #2a7bd3;
+}
+
+.task-list-toggle-icon {
+    font-size: 1.25rem;
+    line-height: 1;
 }
 
 .layout {
@@ -21,6 +53,21 @@ h1 {
     min-width: 0;
 }
 
+.task-list-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.task-list-overlay.is-open {
+    display: block;
+    opacity: 1;
+}
+
 .task-list-wrap {
     flex-shrink: 0;
     width: 220px;
@@ -30,6 +77,34 @@ h1 {
     flex-direction: column;
 }
 
+.task-list-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+.task-list-close {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #666;
+    border-radius: 6px;
+}
+
+.task-list-close:hover {
+    background: #f0f0f0;
+    color: #000;
+}
+
 .task-list {
     display: flex;
     flex-direction: column;
@@ -37,6 +112,62 @@ h1 {
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 4px;
+}
+
+/* Мобильная версия: задача на весь экран, список — выдвижная панель */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    .task-list-toggle {
+        display: flex;
+    }
+
+    .layout {
+        height: calc(100vh - 56px);
+        min-height: 280px;
+    }
+
+    .task-list-overlay {
+        display: block;
+        pointer-events: none;
+    }
+
+    .task-list-overlay.is-open {
+        pointer-events: auto;
+    }
+
+    .task-list-wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(320px, 85vw);
+        max-width: 320px;
+        height: 100%;
+        z-index: 20;
+        background: #f5f5f5;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+        transform: translateX(100%);
+        transition: transform 0.25s ease;
+        flex-direction: column;
+    }
+
+    .task-list-wrap.is-open {
+        transform: translateX(0);
+    }
+
+    .task-list-header {
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    .task-list {
+        flex: 1;
+        padding: 12px;
+        padding-right: 8px;
+    }
 }
 
 .task-list-item {

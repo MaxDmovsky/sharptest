@@ -1135,8 +1135,28 @@ function saveResult(taskId, isCorrect) {
 // ===== UI =====
 const taskContent = document.getElementById("task-content");
 const taskListEl = document.getElementById("task-list");
+const taskListWrap = document.getElementById("task-list-wrap");
+const taskListToggle = document.getElementById("task-list-toggle");
+const taskListOverlay = document.getElementById("task-list-overlay");
+const taskListClose = document.getElementById("task-list-close");
 
 let currentTaskIndex = 0;
+
+function openTaskListPanel() {
+    if (taskListWrap) taskListWrap.classList.add("is-open");
+    if (taskListOverlay) {
+        taskListOverlay.classList.add("is-open");
+        taskListOverlay.setAttribute("aria-hidden", "false");
+    }
+}
+
+function closeTaskListPanel() {
+    if (taskListWrap) taskListWrap.classList.remove("is-open");
+    if (taskListOverlay) {
+        taskListOverlay.classList.remove("is-open");
+        taskListOverlay.setAttribute("aria-hidden", "true");
+    }
+}
 
 function escapeHtml(text) {
     if (text == null) return "";
@@ -1160,6 +1180,7 @@ function renderTaskList() {
             currentTaskIndex = index;
             renderTaskList();
             renderCurrentTask();
+            closeTaskListPanel();
         };
         taskListEl.appendChild(item);
     });
@@ -1229,5 +1250,9 @@ function render() {
     renderTaskList();
     renderCurrentTask();
 }
+
+if (taskListToggle) taskListToggle.addEventListener("click", openTaskListPanel);
+if (taskListOverlay) taskListOverlay.addEventListener("click", closeTaskListPanel);
+if (taskListClose) taskListClose.addEventListener("click", closeTaskListPanel);
 
 render();
