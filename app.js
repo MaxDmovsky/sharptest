@@ -1142,6 +1142,15 @@ const taskListClose = document.getElementById("task-list-close");
 
 let currentTaskIndex = 0;
 
+function getInitialTaskIndex() {
+    const results = getResults();
+    let lastCompletedIndex = -1;
+    for (let i = 0; i < tasks.length; i++) {
+        if (results[tasks[i].id]) lastCompletedIndex = i;
+    }
+    return Math.min(lastCompletedIndex + 1, tasks.length - 1);
+}
+
 function openTaskListPanel() {
     if (taskListWrap) taskListWrap.classList.add("is-open");
     if (taskListOverlay) {
@@ -1255,4 +1264,5 @@ if (taskListToggle) taskListToggle.addEventListener("click", openTaskListPanel);
 if (taskListOverlay) taskListOverlay.addEventListener("click", closeTaskListPanel);
 if (taskListClose) taskListClose.addEventListener("click", closeTaskListPanel);
 
+currentTaskIndex = getInitialTaskIndex();
 render();
