@@ -1115,7 +1115,37 @@ const tasks =
         "1"
       ],
       "correctIndex": 1
-    }
+    },
+    { "id": 102, "question": "Что выведет: var b = true; Console.Write(!b ? \"A\" : \"B\");", "code": "C#", "options": ["B", "A", "true"], "correctIndex": 0 },
+    { "id": 103, "question": "Как получить максимальное значение в колонке Price?", "code": "SQL", "options": ["SELECT TOP 1 Price FROM Products", "SELECT MAX(Price) FROM Products", "SELECT HIGHEST(Price) FROM Products"], "correctIndex": 1 },
+    { "id": 104, "question": "Как в Razor объединить несколько условий в условии?", "code": "Показать при Model.Active и Model.Visible", "options": ["@if (Model.Active AND Model.Visible)", "@if (Model.Active + Model.Visible)", "@if (Model.Active && Model.Visible)"], "correctIndex": 2 },
+    { "id": 105, "question": "Что вернёт: new[] { 5, 10, 15 }.All(x => x > 0);", "code": "LINQ", "options": ["false", "true", "0"], "correctIndex": 1 },
+    { "id": 106, "question": "Как в SELECT переименовать результат агрегатной функции?", "code": "COUNT(*) как Total", "options": ["SELECT COUNT(*) Total FROM Orders", "SELECT COUNT(*) AS Total FROM Orders", "SELECT COUNT(*) AS \"Total\" FROM Orders"], "correctIndex": 1 },
+    { "id": 107, "question": "Как в Controller вернуть представление с именем и моделью?", "code": "View \"Details\", модель product", "options": ["return View(product, \"Details\");", "return View(\"Details\", product);", "return View().Name(\"Details\").Model(product);"], "correctIndex": 1 },
+    { "id": 108, "question": "Что выведет: int i = 0; while (i++ < 2) Console.Write(i);", "code": "C#", "options": ["123", "12", "012"], "correctIndex": 1 },
+    { "id": 109, "question": "Как в WHERE указать «значение между двумя числами»?", "code": "Id от 1 до 10", "options": ["WHERE Id BETWEEN 1 AND 10", "WHERE Id IN (1, 10)", "WHERE Id RANGE 1 TO 10"], "correctIndex": 0 },
+    { "id": 110, "question": "Что делает GroupBy в LINQ?", "code": "items.GroupBy(x => x.Category)", "options": ["Сортирует по Category", "Группирует элементы по ключу Category", "Фильтрует по Category"], "correctIndex": 1 },
+    { "id": 111, "question": "Что делает .Take(3) в LINQ?", "code": "var a = list.Take(3);", "options": ["Берёт первые 3 элемента", "Берёт каждый 3-й элемент", "Пропускает 3 элемента"], "correctIndex": 0 },
+    { "id": 112, "question": "Как в SQL Server склеить строки из двух колонок?", "code": "Name и Surname", "options": ["SELECT Name + Surname FROM Users", "SELECT CONCAT(Name, ' ', Surname) FROM Users", "SELECT JOIN(Name, Surname) FROM Users"], "correctIndex": 1 },
+    { "id": 113, "question": "Как в форме Razor указать placeholder для поля ввода?", "code": "Tag Helpers", "options": ["<input placeholder=\"Введите имя\" />", "<input asp-placeholder=\"Введите имя\" />", "<input asp-for=\"Name\" placeholder=\"Введите имя\" />"], "correctIndex": 2 },
+    { "id": 114, "question": "Что выведет: for (int i = 2; i > 0; i--) Console.Write(i);", "code": "C#", "options": ["210", "21", "2"], "correctIndex": 1 },
+    { "id": 115, "question": "Как выбрать строки, где колонка равна NULL?", "code": "Поле DeletedAt", "options": ["WHERE DeletedAt == NULL", "WHERE DeletedAt IS NULL", "WHERE DeletedAt = NULL"], "correctIndex": 1 },
+    { "id": 116, "question": "Как в Razor проверить отрицание условия?", "code": "Если модель не активна", "options": ["@if (NOT Model.IsActive)", "@if (!Model.IsActive)", "@if (Model.IsActive == true)"], "correctIndex": 1 },
+    { "id": 117, "question": "Что вернёт: new[] { 1, 2, 3 }.Reverse().First();", "code": "LINQ", "options": ["3", "1", "321"], "correctIndex": 0 },
+    { "id": 118, "question": "Как в SELECT посчитать сумму всех значений в колонке?", "code": "Колонка Total в Orders", "options": ["SELECT ADD(Total) FROM Orders", "SELECT TOTAL(Total) FROM Orders", "SELECT SUM(Total) FROM Orders"], "correctIndex": 2 },
+    { "id": 119, "question": "Как в Controller указать, что действие принимает только POST-запросы?", "code": "ASP.NET Core", "options": ["[HttpGet] на действии", "[HttpPost] на действии", "method = post в атрибуте"], "correctIndex": 1 },
+    { "id": 120, "question": "Что выведет: switch(2) { case 1: Console.Write(\"A\"); break; case 2: Console.Write(\"B\"); break; }", "code": "C#", "options": ["AB", "2", "B"], "correctIndex": 2 },
+    { "id": 121, "question": "Как отсортировать выборку по убыванию?", "code": "По Price", "options": ["ORDER BY Price ASC", "SORT BY Price DESC", "ORDER BY Price DESC"], "correctIndex": 2 },
+    { "id": 122, "question": "Как в Razor проверить, что коллекция модели не пустая?", "code": "Model.Items", "options": ["@Model.Items.NotEmpty()", "@if (Model.Items != null && Model.Items.Any())", "@Model.Items.Count > 0"], "correctIndex": 1 },
+    { "id": 123, "question": "Что делает .Skip(2) в LINQ?", "code": "var a = list.Skip(2);", "options": ["Берёт только 2-й элемент", "Пропускает первые 2 элемента", "Удаляет первые 2 элемента"], "correctIndex": 1 },
+    { "id": 124, "question": "Как в WHERE объединить два условия через И?", "code": "Status = Done И Created > дата", "options": ["WHERE Status = 'Done', Created > '2024-01-01'", "WHERE Status = 'Done' AND Created > '2024-01-01'", "WHERE Status = 'Done' && Created > '2024-01-01'"], "correctIndex": 1 },
+    { "id": 125, "question": "Как в Razor вывести ссылку с параметрами маршрута?", "code": "Ссылка на Edit с id", "options": ["<a href=\"Edit?id=@Model.Id\">Изменить</a>", "<a asp-action=\"Edit\" asp-route-id=\"@Model.Id\">Изменить</a>", "<a asp-route=\"Edit\" asp-id=\"@Model.Id\">Изменить</a>"], "correctIndex": 1 },
+    { "id": 126, "question": "Что выведет: Console.Write(\"ab\".Substring(1, 1));", "code": "C#", "options": ["a", "b", "ab"], "correctIndex": 1 },
+    { "id": 127, "question": "Как в WHERE указать условие ИЛИ?", "code": "Status = New или Pending", "options": ["WHERE Status IN ('New', 'Pending')", "WHERE Status = 'New' OR Status = 'Pending'", "WHERE Status = 'New' | 'Pending'"], "correctIndex": 1 },
+    { "id": 128, "question": "Как в Razor указать значение по умолчанию для nullable типа?", "code": "Model.Count может быть null", "options": ["@Model.Count.Or(0)", "@(Model.Count ?? 0)", "@Model.Count ?? 0"], "correctIndex": 1 },
+    { "id": 129, "question": "Что вернёт: new[] { 1, 2, 3 }.Last();", "code": "LINQ", "options": ["1", "6", "3"], "correctIndex": 2 },
+    { "id": 130, "question": "Как в SELECT ограничить длину выводимой строки?", "code": "SQL Server, первые 10 символов Name", "options": ["SELECT SUBSTRING(Name, 1, 10) FROM Users", "SELECT TRUNCATE(Name, 10) FROM Users", "SELECT LEFT(Name, 10) FROM Users"], "correctIndex": 2 },
+    { "id": 131, "question": "Как в Razor указать тип модели страницы?", "code": "Модель — Product", "options": ["@Model Product", "@model Product", "model Product;"], "correctIndex": 1 }
   ];
 
 
