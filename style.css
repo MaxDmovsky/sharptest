@@ -208,6 +208,87 @@ h1 {
     transition: box-shadow 0.3s, background 0.3s;
 }
 
+.task-question-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.task-question-row .task-question {
+    flex: 1;
+}
+
+.task-explanation-toggle {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    color: #1976d2;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.task-explanation-toggle:hover {
+    background: #bbdefb;
+}
+
+.task-explanation-toggle:active {
+    transform: scale(0.95);
+}
+
+.task-explanation {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-top: 0;
+}
+
+.task-explanation.is-open {
+    max-height: 500px;
+    margin-top: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #90caf9;
+}
+
+.explanation-item {
+    margin: 6px 0;
+    font-size: 13px;
+}
+
+.explanation-correct {
+    color: #2e7d32;
+}
+
+.explanation-wrong {
+    color: #555;
+}
+
+.explanation-marker {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.explanation-option {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+}
+
+.explanation-text {
+    color: #666;
+}
+
+.explanation-generic {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #555;
+}
+
 .task-question,
 .task-code,
 .option-text {
