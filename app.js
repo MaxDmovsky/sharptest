@@ -118,12 +118,12 @@ const tasks =
       "question": "Как из Controller передать данные во View?",
       "code": "Передать список продуктов",
       "options": [
-        "View.Data = products; return View();",
+        "return products",
         "return View(products);",
         "Response.Write(products); return View();"
       ],
       "correctIndex": 1,
-      "explanations": ["View.Data не используется в ASP.NET Core", "модель передаётся вторым аргументом View()", "Response.Write не передаёт модель во View"]
+      "explanations": ["proucts просто возвращается, а не передаётся в View", "модель передаётся вторым аргументом View()", "Response.Write не передаёт модель во View"]
     },
     {
       "id": 10,
@@ -259,15 +259,19 @@ const tasks =
     },
     {
       "id": 21,
-      "question": "Где хранится разметка по умолчанию в ASP.NET Core?",
-      "code": "Layout",
+      "question": "Как вернуть успешный ответ (200 OK) из API-метода контроллера?",
+      "code": "ASP.NET Core",
       "options": [
-        "Layout.html в Views",
-        "Default.cshtml в Pages",
-        "_Layout.cshtml в Shared"
+        "return Ok(data);",
+        "return NotFound();",
+        "return BadRequest();"
       ],
-      "correctIndex": 2,
-      "explanations": ["Layout по умолчанию — .cshtml, не .html", "Default.cshtml не стандартное имя", "_Layout.cshtml в Views/Shared — соглашение"]
+      "correctIndex": 0,
+      "explanations": [
+        "Ok(...) возвращает 200 OK с данными",
+        "NotFound() возвращает 404, когда ресурс не найден",
+        "BadRequest() возвращает 400 при ошибке в данных запроса"
+      ]
     },
     {
       "id": 22,
