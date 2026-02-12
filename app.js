@@ -903,18 +903,18 @@ const tasks =
     },
     {
       "id": 72,
-      "question": "Как в Controller получить данные из тела POST-запроса?",
-      "code": "JSON в теле запроса",
+      "question": "Как корректно принять сложный объект из JSON в теле POST-запроса в API-контроллере?",
+      "code": "public class CreateUserDto { public string Name { get; set; } }",
       "options": [
-        "Request.Body.Read()",
-        "Параметр действия с [FromBody] или модель с привязкой",
-        "Request.Post[\"data\"]"
+        "public IActionResult Create(string json) { /* парсить JSON вручную */ }",
+        "public IActionResult Create([FromBody] CreateUserDto dto) { /* использовать dto */ }",
+        "public IActionResult Create() { var dto = new CreateUserDto(); /* заполнить вручную */ }"
       ],
       "correctIndex": 1,
       "explanations": [
-        "Body.Read — низкоуровневый доступ, не для JSON",
-        "[FromBody] или модель — стандартная привязка модели",
-        "Request.Post — для form-data, не JSON"
+        "строка json требует ручного парсинга и обходит модель-привязку",
+        "атрибут [FromBody] (или просто параметр модели в API-контроллере) позволяет фреймворку самостоятелно разобрать JSON — верно",
+        "создание dto вручную не читает тело запроса"
       ]
     },
     {
@@ -1096,13 +1096,18 @@ const tasks =
     {
       "id": 84,
       "question": "Как вывести список с в формате \"элемент, индекс_элемента\"?",
-      "code": "Model — список, нужен номер строки",
+      "code": "list — cписок объектов",
       "options": [
-        "foreach (var (i, item) in list.Select((x, i) => (x,i))) { Console.WriteLine($\"{item}, {i}\"); }}",
-        "for (var i = 0; i < list.Count; i++) { Console.WriteLine(\"item[i], i\"); }",
+        "foreach (var (i,item) in list) { Console.WriteLine(\"{item}, {i}\"); }}",
+        "for (var i = 0; i < list.Count; i++) { Console.WriteLine(\$\"{item[i]}, {i}\"); }",
         "list.ForEach((item) => Console.WriteLine(item))"
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "explanations": [
+        "т.к list это список объектов, а не список пар, то foreach (var (i,item) in list) не работает, т.к нельзя разобрать обычный объект на пару.",
+        "верный вариант",
+        "выводит только элементы без индекса"
+      ]
     },
     {
       "id": 85,
@@ -1922,15 +1927,335 @@ const tasks =
       "question": "Для каждого статуса (Status) — количество и сумма (Amount). Таблица Orders.",
       "code": "orders - таблица заказов, каждый Order с полями Status,Amount",
       "options": [
-        "SELECT Status, COUNT(*), SUM(Amount) FROM Orders GROUP BY Status, Amount",
-        "SELECT Status, COUNT(*), SUM(Amount) FROM Orders GROUP BY Status",
+        "SELECT Status, COUNT(*), SUM(*) FROM Orders GROUP BY Status, Amount",
+        "SELECT Status, COUNT(Id), SUM(Amount) FROM Orders GROUP BY Status",
         "SELECT Status FROM Orders GROUP BY Status SELECT COUNT(*), SUM(Amount)"
       ],
       "correctIndex": 1,
       "explanations": [
-        "GROUP BY Status, Amount разбивает по парам, не по статусу",
+        "GROUP BY Status, Amount разбивает по парам статус и сумма, а не по статусу",
         "GROUP BY Status и агрегаты COUNT, SUM — корректно",
         "два SELECT подряд недопустимы"
+      ]
+    },
+    {
+      "id": 152,
+      "question": "Из списка пользователей получить Email только активных пользователей, отсортированных по имени.",
+      "code": "users — List<User> с полями Name, Email, IsActive",
+      "options": [
+        "users.Where(u => u.IsActive).OrderBy(u => u.Name).Select(u => u.Email)",
+        "users.Select(u => u.Email).Where(u => u.IsActive).OrderBy(u => u.Name)",
+        "users.OrderBy(u => u.Email).Where(u => u.IsActive).Select(u => u.Name)"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "сначала фильтр по IsActive, затем сортировка по Name и проекция Email — верно",
+        "после Select(u => u.Email) объекта u уже нет, к IsActive не обратиться",
+        "сортировка по Email и проекция Name не соответствуют условию"
+      ]
+    },
+    {
+      "id": 153,
+      "question": "Получить пользователей, у которых больше 3 заказов. Таблицы Users(Id) и Orders(UserId).",
+      "code": "SQL: JOIN, GROUP BY, HAVING",
+      "options": [
+        "SELECT u.Id FROM Users u JOIN Orders o ON u.Id = o.UserId AND COUNT(o.Id) > 3 ",
+        "SELECT u.Id FROM Users u JOIN Orders o ON u.Id = o.UserId GROUP BY u.Id HAVING COUNT(o.Id) > 3",
+        "SELECT u.Id FROM Users u JOIN Orders o ON u.Id = o.UserId WHERE COUNT(o.Id) > 3"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "COUNT(o.Id) нельзя использовать в JOIN, нужен HAVING",
+        "JOIN, GROUP BY по пользователю и HAVING по количеству заказов — верно",
+        "COUNT(o.Id) в WHERE недопустим, нужен HAVING"
+      ]
+    },
+    {
+      "id": 154,
+      "question": "По каждому пользователю получить суммарную стоимость заказов. ",
+      "code": "orders — List<Order> с полями UserId, Amount.",
+      "options": [
+        "orders.GroupBy(o => o.UserId).Select(g => new { UserId = g.Key, Total = g.Sum(o => o.Amount) })",
+        "orders.Select(o => new { o.UserId, o.Amount }).Sum(o => o.Amount)",
+        "orders.GroupBy(o => o.Amount).Select(g => new { UserId = g.Key, Total = g.Sum(o => o.Amount) })"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "группировка по UserId и Sum по Amount внутри группы — верно",
+        "Sum по всей коллекции без группировки — одна общая сумма",
+        "группировка по Amount, а не по пользователю — неверный ключ"
+      ]
+    },
+    {
+      "id": 155,
+      "question": "Найти Email, которые встречаются более одного раза в таблице Users.",
+      "code": "users — таблица с полем Email",
+      "options": [
+        "SELECT Email FROM Users WHERE COUNT(*) > 1 GROUP BY Email",
+        "SELECT Email, COUNT(*) FROM Users GROUP BY Email",
+        "SELECT Email FROM Users GROUP BY Email HAVING COUNT(*) > 1"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "COUNT(*) в WHERE недопустим, нужен HAVING",
+        "Выводит все Email, а не только те, которые встречаются более одного раза",
+        "GROUP BY Email и HAVING COUNT(*) > 1 — верно"
+      ]
+    },
+    {
+      "id": 156,
+      "question": "Получить уникальные годы заказов, отсортированные по возрастанию.",
+      "code": "orders — List<Order> с полем Created (DateTime)",
+      "options": [
+        "orders.Select(o => o.Created.Year).Distinct().OrderBy(y => y)",
+        "orders.Distinct().OrderBy(o => o.Created.Year).Select(o => o.Created.Year)",
+        "orders.OrderByDescending(o => o.Created.Year).Select(o => o.Created.Year).Distinct()"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "Select года, Distinct, затем сортировка по значению года — верно",
+        "Distinct по объектам Order, а не по году",
+        "сортивовка по убыванию, а не по возрастанию"
+      ]
+    },
+    {
+      "id": 157,
+      "question": "Вывести для каждой категории среднюю цену товара, учитывая только товары с ценой > 0.",
+      "code": "Products - таблица товаров, каждый Product с полями CategoryId,Price",
+      "options": [
+        "SELECT CategoryId, AVG(Price) AS AVG_PRICE FROM Products GROUP BY CategoryId HAVING AVG_PRICE > 0",
+        "SELECT CategoryId, AVG(Price) AS AVG_PRICE FROM Products GROUP BY CategoryId WHERE Price > 0",
+        "SELECT CategoryId, AVG(Price) AS AVG_PRICE FROM Products WHERE Price > 0 GROUP BY CategoryId"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "having фильтрует результаты после группировки, в итоге получаем категориии со средней ценой > 0",
+        "WHERE не может идти после GROUP BY",
+        "верно"
+      ]
+    },
+    {
+      "id": 158,
+      "question": "Найти категорию с максимальным количеством товаров.",
+      "code": "products — List<Product> с полем CategoryId",
+      "options": [
+        "products.GroupBy(p => p.CategoryId).Select(g => g.Key).First()",
+        "products.GroupBy(p => p.CategoryId).OrderBy(g => g.Count()).First().Key",
+        "products.GroupBy(p => p.CategoryId).OrderByDescending(g => g.Count()).First().Key"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "без сортировки First() вернёт произвольную категорию",
+        "OrderBy по возрастанию даёт категорию с минимумом товаров",
+        "OrderByDescending по Count и First().Key — категория с максимумом — верно"
+      ]
+    },
+    {
+      "id": 159,
+      "question": "Найти пользователей, у которых нет ни одного заказа.",
+      "code": "Users - таблица пользователей, каждый User с полями Id, Orders - таблица заказов, каждый Order с полями UserId, Id",
+      "options": [
+        "SELECT u.Id FROM Users u JOIN Orders o ON u.Id = o.UserId WHERE o.Id IS NULL",
+        "SELECT u.Id FROM Users u LEFT JOIN Orders o ON u.Id = o.UserId WHERE o.Id IS NULL",
+        "SELECT u.Id FROM Users u WHERE NOT EXISTS Orders o WHERE o.UserId = u.Id"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "Просто JOIN(он же Inner Join) не отсавляет записи которые не получилось ни с чем соеденить",
+        "LEFT JOIN и проверка o.Id IS NULL — классический способ найти строки без связей — верно",
+        "синтаксис NOT EXISTS неверен (нужен подзапрос - Select и т.д.)"
+      ]
+    },
+    {
+      "id": 160,
+      "question": "Получить для каждого пользователя сумму оплаченных заказов (IsPaid = true).",
+      "code": "orders — List<Order> с полями UserId, Amount, IsPaid",
+      "options": [
+        "orders.GroupBy(o => o.UserId).Select(g => new { g.Key, Total = g.Where(o => o.IsPaid).Sum(o => o.Amount) })",
+        "orders.Where(o => o.IsPaid).Select(o => o.Amount).Sum()",
+        "orders.GroupBy(o => o.IsPaid).Select(g => new { IsPaid = g.Key, Total = g.Sum(o => o.Amount) })"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "верно",
+        "Sum по всем заказам без разбиения по пользователям",
+        "Возвращает список из двух записей - сколько суммарно оплачено и сколько суммарно не оплачено"
+      ]
+    },
+    {
+      "id": 161,
+      "question": "Получить список категорий, в которых нет ни одного неактивного товара (IsActive = 0).",
+      "code": "Products - таблица с полями CategoryId, IsActive",
+      "options": [
+        "SELECT CategoryId FROM Products GROUP BY CategoryId HAVING IsActive = 1",
+        "SELECT CategoryId FROM Products GROUP BY CategoryId HAVING SUM(CASE WHEN IsActive = 0 THEN 1 ELSE 0 END) = 0",
+        "SELECT CategoryId FROM Products WHERE IsActive = 1 GROUP BY CategoryId"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "Having позволяет фильтровать только по агреггированным данных(то что указано в Group BY и то что вернут функции AVG,MIN,MAX,COUNT,SUM и т.д)",
+        "Верно",
+        "Вернёт группы в которых есть хотя бы один активный товар, а значит покажет и те группы в которых может быть и не активный"
+      ]
+    },
+    {
+      "id": 162,
+      "question": "Посчитать средний размер заказа (OrderTotal) по каждому пользователю.",
+      "code": "orders — List<Order> с полями UserId, Total",
+      "options": [
+        "orders.GroupBy(o => o.Total).Select(g => new { UserId = g.Key, Avg = g.Average(o => o.Total) })",
+        "orders.Select(o => new { o.UserId, o.Total }).Average(o => o.Total)",
+        "orders.GroupBy(o => o.UserId).Select(g => new { UserId = g.Key, Avg = g.Average(o => o.Total) })"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "группировка по Total, а не по пользователю",
+        "Average по всем заказам без деления по пользователям",
+        "верно"
+      ]
+    },
+    {
+      "id": 163,
+      "question": "Получить топ‑3 пользователей по суммарной стоимости заказов.",
+      "code": "orders — List<Order> с полями UserId, Amount",
+      "options": [
+        "orders.GroupBy(o => o.UserId).Take(3).Select(g => g.Key)",
+        "orders.GroupBy(o => o.UserId).OrderBy(g => g.Sum(o => o.Amount)).Take(3).Select(g => g.Key)",
+        "orders.GroupBy(o => o.UserId).OrderByDescending(g => g.Sum(o => o.Amount)).Take(3).Select(g => g.Key)"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "без сортировки Take(3) выберет произвольные группы",
+        "OrderBy по возрастанию даёт пользователей с минимальной суммой",
+        "OrderByDescending по сумме и Take(3) — верно"
+      ]
+    },
+    {
+      "id": 164,
+      "question": "Найти все заказы, сумма которых выше средней суммы по всем заказам.",
+      "code": "SQL: подзапрос с AVG",
+      "options": [
+        "SELECT * FROM Orders WHERE Amount > (SELECT AVG(Amount) FROM Orders)",
+        "SELECT * FROM Orders WHERE Amount > AVG(Amount)",
+        "SELECT * FROM Orders GROUP BY Amount HAVING Amount > AVG(Amount)"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "верно",
+        "AVG(как и другие аггрегационные функции т.к. SUM,MIN,MAX,COUNT) нельзя использовать в WHERE",
+        "Having позволяет фильтровать только по агреггированным данных(то что указано в Group BY и то что вернут функции AVG,MIN,MAX,COUNT,SUM и т.д)"
+      ]
+    },
+    {
+      "id": 165,
+      "question": "Получить список пользователей и количество их заказов, включая тех, у кого заказов нет.",
+      "code": "SQL: LEFT JOIN, GROUP BY, COUNT",
+      "options": [
+        "SELECT u.Id, COUNT(o.Id) FROM Users u JOIN Orders o ON u.Id = o.UserId GROUP BY u.Id",
+        "SELECT u.Id, COUNT(*) FROM Users u LEFT JOIN Orders o ON u.Id = o.UserId GROUP BY o.UserId",
+        "SELECT u.Id, COUNT(o.Id) FROM Users u LEFT JOIN Orders o ON u.Id = o.UserId GROUP BY u.Id"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "INNER JOIN убирает пользователей без заказов",
+        "GROUP BY по o.UserId теряет пользователей без заказов (NULL)",
+        "LEFT JOIN и GROUP BY по u.Id считают и нулевые заказы — верно"
+      ]
+    },
+    {
+      "id": 166,
+      "question": "Получить из списка заказов пары (UserId, MaxAmount) — максимальная сумма заказа пользователя.",
+      "code": "orders — List<Order> с полями UserId, Amount",
+      "options": [
+        "orders.Select(o => new { o.UserId, o.Amount }).Max(o => o.Amount)",
+        "orders.GroupBy(o => o.UserId).Select(g => new { UserId = g.Key, MaxAmount = g.Max(o => o.Amount) })",
+        "orders.GroupBy(o => o.Amount).Select(g => new { UserId = g.Key, MaxAmount = g.Max(o => o.Amount) })"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "Max без группировки даёт один максимум по всем пользователям",
+        "верно",
+        "группировка по Amount, а не по пользователю"
+      ]
+    },
+    {
+      "id": 167,
+      "question": "Для каждого месяца получить количество заказов. Использовать MONTH(Created).",
+      "code": "Orders - таблица с полями Created,Id",
+      "options": [
+        "SELECT MONTH(Created), COUNT(*) FROM Orders GROUP BY Created",
+        "SELECT MONTH(Created) AS M, COUNT(*) FROM Orders GROUP BY M",
+        "SELECT MONTH(Created) AS M, COUNT(*) FROM Orders GROUP BY MONTH(Created)"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "GROUP BY Created группирует по полной дате, а не по месяцу",
+        "использование алиаса M в GROUP BY не разрешено(а жаль)",
+        "GROUP BY тем же выражением MONTH(Created) надёжно группирует по месяцу — верно"
+      ]
+    },
+    {
+      "id": 168,
+      "question": "Получить пользователей, у которых все заказы имеют статус 'Paid'.",
+      "code": "orders — List<Order> с полями UserId, Status",
+      "options": [
+        "orders.GroupBy(o => o.UserId).Where(g => g.All(o => o.Status = \"Paid\").Select(g => g.Key)",
+        "orders.Where(o => o.Status == \"Paid\").GroupBy(o => o.UserId).Select(g => g.Key)",
+        "orders.GroupBy(o => o.UserId).Where(g => g.All(o => o.Status == \"Paid\")).Select(g => g.Key)"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "o.Status = \"Paid\" - присвоение а не сравнение, ошибка компиляции",
+        "фильтрация только Paid не гарантирует, что у пользователя нет других статусов",
+        "верно"
+      ]
+    },
+    {
+      "id": 169,
+      "question": "Найти категории, в которых хотя бы один товар дороже 1000 и хотя бы один дешевле 100.",
+      "code": "SQL: GROUP BY, HAVING с двумя условиями",
+      "options": [
+        "SELECT CategoryId FROM Products GROUP BY CategoryId HAVING Price > 1000 AND Price < 100",
+        "SELECT CategoryId FROM Products GROUP BY CategoryId HAVING MAX(Price) > 1000 AND MIN(Price) < 100",
+        "SELECT CategoryId FROM Products WHERE Price > 1000 AND Price < 100 GROUP BY CategoryId"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "Having позволяет фильтровать только по агреггированным данных(то что указано в Group BY и то что вернут функции AVG,MIN,MAX,COUNT,SUM и т.д)",
+        "одновременное условие по MAX и MIN в HAVING — верно",
+        "Price > 1000 и Price < 100 одновременно невозможны для одной строки"
+      ]
+    },
+    {
+      "id": 170,
+      "question": "Посчитать количество заказов для каждого статуса Status в виде словаря (ключ — Status, значение — Count).",
+      "code": "orders — List<Order> с полем Status",
+      "options": [
+        "orders.GroupBy(o => o.Status).ToDictionary(g => g.Key, g => g.Count())",
+        "orders.GroupBy(o => o.Status).Select(g => new { g.Key, g.Count })",
+        "orders.ToDictionary(o => o.Status, o => o.Count())"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "верно",
+        "Select создаёт анонимные объекты, но не словарь",
+        "Count() нельзя вызывать на отдельном объекте Order"
+      ]
+    },
+    {
+      "id": 171,
+      "question": "Получить суммы продаж по каждой дате.",
+      "code": "CAST(Created AS date) возвращает только дату из поля с датой и временем",
+      "options": [
+        "SELECT CAST(Created AS date) AS D, SUM(Amount) FROM Orders GROUP BY CAST(Created AS date)",
+        "SELECT CAST(Created AS date) AS D, SUM(Amount) FROM Orders GROUP BY Created",
+        "SELECT Created, SUM(Amount) FROM Orders GROUP BY Created"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "верно",
+        "GROUP BY Created группирует по дате и времени",
+        "GROUP BY Created группирует по дате и времени, ещё и результат без алиасов"
       ]
     }
   ];
