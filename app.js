@@ -2257,6 +2257,1396 @@ const tasks =
         "GROUP BY Created группирует по дате и времени",
         "GROUP BY Created группирует по дате и времени, ещё и результат без алиасов"
       ]
+    },
+    {
+      "id": 173,
+      "question": "Как в SELECT задать псевдоним для колонки?",
+      "code": "Колонка Name как FullName",
+      "options": [
+        "SELECT Name FullName FROM Users",
+        "SELECT Name AS \"FullName\" FROM Users",
+        "SELECT Name AS FullName FROM Users"
+      ],
+      "correctIndex": 2,
+      "explanations": ["пробел может работать, но AS явнее", "кавычки для зарезервированных имён", "AS псевдоним — стандартный синтаксис"]
+    },
+    {
+      "id": 174,
+      "question": "Выбери неправильный вариант: Как в методе контроллера получить Id из маршрута c помощью аттрибута HttpGet?",
+      "code": "GET /Product/Details/5",
+      "options": [
+        "[HttpGet(\"Details/{id}\")] public IActionResult Details(int id)",
+        "[HttpGet] public IActionResult Details(int id)",
+        "[HttpGet(\"Details/{id:int}\")] public IActionResult Details(int? id = Request.Id)"
+      ],
+      "correctIndex": 1,
+      "explanations": ["явный маршрут с id — корректно", "базовый [HttpGet] с параметром — корректно (нужно выбрать неправильный)", "Request.Id не используется для привязки параметра"]
+    },
+    {
+      "id": 175,
+      "question": "Что выведет: \n if (false && true) \n {\n Console.Write(\"A\");\n } else \n {\n Console.Write(\"B\");\n }",
+      "code": "C#",
+      "options": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "correctIndex": 0,
+      "explanations": ["false && что угодно = false, выполняется else", "ветка if не выполняется", "выполняется только одна ветка"]
+    },
+    {
+      "id": 176,
+      "question": "Как обновить строки с условием по дате?",
+      "code": "Status = 'Done' где Created < '2024-01-01'",
+      "options": [
+        "UPDATE Tasks SET Status = 'Done' IF Created < '2024-01-01'",
+        "SET Tasks.Status = 'Done' WHERE Created < '2024-01-01'",
+        "UPDATE Tasks SET Status = 'Done' WHERE Created < '2024-01-01'"
+      ],
+      "correctIndex": 2,
+      "explanations": ["в SQL используется WHERE, не IF", "нужен UPDATE в начале", "UPDATE SET ... WHERE — корректный синтаксис"]
+    },
+    {
+      "id": 177,
+      "question": "Как в Razor в форме сделать поле для ввода значения для свойства Name из модели?",
+      "code": "Tag Helpers",
+      "options": [
+        "<input name=\"Model.Name\" />",
+        "<input bind=\"Name\" />",
+        "<input asp-for=\"Name\" />"
+      ],
+      "correctIndex": 2,
+      "explanations": ["name может работать, но без привязки", "bind — не Razor Tag Helper", "asp-for привязывает к свойству модели"]
+    },
+    {
+      "id": 178,
+      "question": "Что вернёт: new List<int> { 1, 2, 3 }.Sum();",
+      "code": "LINQ",
+      "options": [
+        "3",
+        "1",
+        "6"
+      ],
+      "correctIndex": 2,
+      "explanations": ["3 — количество элементов", "1 — первый элемент", "1+2+3=6"]
+    },
+    {
+      "id": 179,
+      "question": "Как выбрать строки, где поле не NULL?",
+      "code": "Колонка Email",
+      "options": [
+        "WHERE Email != NULL",
+        "WHERE Email IS NOT NULL",
+        "WHERE NOT NULL(Email)"
+      ],
+      "correctIndex": 1,
+      "explanations": ["с NULL используется IS, не = или !=", "IS NOT NULL — корректная проверка", "NOT NULL(Email) неверный синтаксис"]
+    },
+    {
+      "id": 180,
+      "question": "Как в Controller проверить, что запрос пришёл методом POST?",
+      "code": "ASP.NET Core",
+      "options": [
+        "if (Request.IsPost)",
+        "Request.Type == Post",
+        "if (Request.Method == \"POST\") или [HttpPost] на действии"
+      ],
+      "correctIndex": 2,
+      "explanations": ["IsPost не стандартное свойство", "Type == Post неверно", "[HttpPost] ограничивает действие"]
+    },
+    {
+      "id": 181,
+      "question": "Что выведет: foreach (var n in new[] { 2, 2 }) Console.Write(n);",
+      "code": "C#",
+      "options": [
+        "4",
+        "22",
+        "2"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "foreach не суммирует, а перебирает",
+        "два элемента 2 и 2 выводятся подряд — 22",
+        "выводится оба элемента, не один"
+      ]
+    },
+    {
+      "id": 182,
+      "question": "Как ограничить выборку по количеству записей?",
+      "code": "SQL Server — 5 записей",
+      "options": [
+        "SELECT * FROM Users LIMIT 5",
+        "SELECT * FROM Users MAX 5",
+        "SELECT TOP 5 * FROM Users"
+      ],
+      "correctIndex": 2,
+      "explanations": ["LIMIT — MySQL/PostgreSQL", "MAX не для ограничения выборки", "TOP — синтаксис SQL Server"]
+    },
+    {
+      "id": 183,
+      "question": "Как в Razor написать комментарий, который не попадёт в HTML?",
+      "code": "Серверный комментарий",
+      "options": [
+        "@* комментарий *@",
+        "<!-- комментарий -->",
+        "@// комментарий"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "@* *@ — серверный комментарий Razor, не в HTML",
+        "<!-- --> — HTML-комментарий, попадёт в разметку",
+        "@// — может интерпретироваться как код"
+      ]
+    },
+    {
+      "id": 184,
+      "question": "Что вернёт: new[] { \"a\", \"bb\", \"c\" }.OrderBy(s => s.Length).First();",
+      "code": "LINQ",
+      "options": [
+        "c",
+        "a",
+        "bb"
+      ],
+      "correctIndex": 1,
+      "explanations": ["c имеет длину 1, как и a", "по длине: a(1), c(1), bb(2); First даёт a", "bb — самый длинный"]
+    },
+    {
+      "id": 185,
+      "question": "Как в WHERE указать «строка содержит подстроку»?",
+      "code": "SQL Server, колонка Name",
+      "options": [
+        "WHERE Name = 'text'",
+        "WHERE Name IN 'text'",
+        "WHERE Name LIKE '%text%'"
+      ],
+      "correctIndex": 2,
+      "explanations": ["= для полного совпадения", "IN для списка значений", "LIKE '%text%' — подстрока в любом месте"]
+    },
+    {
+      "id": 186,
+      "question": "Как в Razor задать значение по умолчанию для отображения?",
+      "code": "Если Model.Name пустой — показать «Без имени»",
+      "options": [
+        "@Model.Name.Default(\"Без имени\")",
+        "@(Model?.Name ?? \"Без имени\")",
+        "@Model.Name ?? \"Без имени\""
+      ],
+      "correctIndex": 1,
+      "explanations": ["Default не у string", "?? подставляет при null/пустоте; скобки для приоритета", "без ?. упадёт при null Model"]
+    },
+    {
+      "id": 187,
+      "question": "Что выведет: int x = 2; do { Console.Write(x); x++; } while (x < 2);",
+      "code": "C# do-while",
+      "options": [
+        "2",
+        "12",
+        "ничего"
+      ],
+      "correctIndex": 0,
+      "explanations": ["do выполняется минимум раз: вывод 2, потом x=3, выход", "цикл не повторяется", "один проход есть"]
+    },
+    {
+      "id": 188,
+      "question": "Как в SELECT сложить два поля?",
+      "code": "Price и Tax в таблице Orders",
+      "options": [
+        "SELECT SUM(Price, Tax) FROM Orders",
+        "SELECT Price + Tax AS Total FROM Orders",
+        "SELECT Price, Tax, Total FROM Orders"
+      ],
+      "correctIndex": 1,
+      "explanations": ["SUM принимает один аргумент", "арифметика + в SELECT", "Total — не колонка, нужен AS"]
+    },
+    {
+      "id": 189,
+      "question": "Как в Razor показать разметку только при выполнении условия?",
+      "code": "Показать блок, если Model.HasItems",
+      "options": [
+        "@Model.HasItems ? <ul>...</ul>",
+        "@show(Model.HasItems, \"<ul>...</ul>\")",
+        "@if (Model.HasItems) { <ul>...</ul> }"
+      ],
+      "correctIndex": 2,
+      "explanations": ["тернарный с разметкой сложнее в Razor", "show не существует", "if с блоком — стандартный способ"]
+    },
+    {
+      "id": 190,
+      "question": "Что вернёт: new[] { 1, 2, 3 }.Skip(1).Take(1).First();",
+      "code": "LINQ",
+      "options": [
+        "2",
+        "1",
+        "3"
+      ],
+      "correctIndex": 0,
+      "explanations": ["Skip(1) пропускает 1, Take(1) берёт один — это 2", "1 пропущен Skip", "3 не входит в Take(1)"]
+    },
+    {
+      "id": 191,
+      "question": "Как сгруппировать строки по полю и посчитать количество в каждой группе?",
+      "code": "Группа по City из Users",
+      "options": [
+        "SELECT City, COUNT(*) FROM Users GROUP BY City",
+        "SELECT City, SUM(*) FROM Users GROUP BY City",
+        "SELECT City, COUNT(*) FROM Users BY City"
+      ],
+      "correctIndex": 0,
+      "explanations": ["GROUP BY с COUNT — подсчёт в группах", "SUM(*) не используется", "нужно GROUP BY, не BY"]
+    },
+    {
+      "id": 192,
+      "question": "Как в форме Razor привязать поле к свойству модели?",
+      "code": "Свойство Product.Price",
+      "options": [
+        "<input name=\"Price\" />",
+        "<input bind=\"Product.Price\" />",
+        "<input asp-for=\"Price\" />"
+      ],
+      "correctIndex": 2,
+      "explanations": ["name без asp-for не даёт полной привязки", "bind не Razor", "asp-for привязывает к свойству"]
+    },
+    {
+      "id": 193,
+      "question": "Что выведет: var s = \"\"; if (string.IsNullOrEmpty(s)) Console.Write(\"Y\");",
+      "code": "C#",
+      "options": [
+        "Y",
+        "ничего",
+        "s"
+      ],
+      "correctIndex": 0,
+      "explanations": ["пустая строка — IsNullOrEmpty true, выводится Y", "блок if выполняется", "выводится литерал Y"]
+    },
+    {
+      "id": 194,
+      "question": "Как выбрать строки с датой в диапазоне?",
+      "code": "Created между 2024-01-01 и 2024-12-31",
+      "options": [
+        "WHERE Created IN ('2024-01-01', '2024-12-31')",
+        "WHERE Created RANGE '2024-01-01' TO '2024-12-31'",
+        "WHERE Created BETWEEN '2024-01-01' AND '2024-12-31'"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "IN — для списка дискретных значений",
+        "RANGE TO — не синтаксис SQL",
+        "BETWEEN AND — для диапазона включительно"
+      ]
+    },
+    {
+      "id": 195,
+      "question": "Как корректно принять сложный объект из JSON в теле POST-запроса в API-контроллере?",
+      "code": "public class CreateUserDto { public string Name { get; set; } }",
+      "options": [
+        "public IActionResult Create(string json) { /* парсить JSON вручную */ }",
+        "public IActionResult Create([FromBody] CreateUserDto dto) { /* использовать dto */ }",
+        "public IActionResult Create() { var dto = new CreateUserDto(); /* заполнить вручную */ }"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "строка json требует ручного парсинга и обходит модель-привязку",
+        "атрибут [FromBody] (или просто параметр модели в API-контроллере) позволяет фреймворку самостоятелно разобрать JSON — верно",
+        "создание dto вручную не читает тело запроса"
+      ]
+    },
+    {
+      "id": 196,
+      "question": "Что вернёт: new[] { 10, 20, 30 }.Max();",
+      "code": "LINQ",
+      "options": [
+        "30",
+        "60",
+        "20"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "Max() возвращает максимальный элемент",
+        "60 — сумма, не максимум",
+        "20 — средний, не максимальный"
+      ]
+    },
+    {
+      "id": 197,
+      "question": "Как в UPDATE задать значение из другой таблицы?",
+      "code": "Обновить Users.Name из TempData по Id",
+      "options": [
+        "UPDATE Users SET Name = SELECT Name FROM TempData",
+        "UPDATE Users SET Name = TempData.Name",
+        "UPDATE u SET u.Name = t.Name FROM Users u JOIN TempData t ON u.Id = t.Id"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "подзапрос в SET требует скобок и связи по Id",
+        "прямая ссылка на таблицу без JOIN неверна",
+        "UPDATE с FROM и JOIN — корректный способ в T-SQL"
+      ]
+    },
+    {
+      "id": 198,
+      "question": "Как в Razor объявить переменную для использования в разметке?",
+      "code": "Переменная count",
+      "options": [
+        "@{ var count = 0; }",
+        "@var count = 0;",
+        "@(var count = 0)"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "@{} — блок кода для объявления переменных",
+        "@var — неверный синтаксис Razor",
+        "@() — для выражений с выводом, не объявлений"
+      ]
+    },
+    {
+      "id": 199,
+      "question": "Что выведет: for (int i = 0; i < 2; i++) { if (i == 1) break; Console.Write(i); }",
+      "code": "C#",
+      "options": [
+        "0",
+        "01",
+        "1"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "i=0: вывод 0; i=1: break до Write — выход",
+        "при i=1 выполняется break, 1 не выводится",
+        "0 выводится первым, не 1"
+      ]
+    },
+    {
+      "id": 200,
+      "question": "Как выбрать строки, где колонка равна одному из значений?",
+      "code": "Status = 'New' или 'Pending'",
+      "options": [
+        "WHERE Status IN ('New', 'Pending')",
+        "WHERE Status = 'New' OR 'Pending'",
+        "WHERE Status IN 'New', 'Pending'"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "IN (список) — проверка на вхождение",
+        "OR требует полного условия: Status = 'Pending'",
+        "IN требует скобок вокруг списка"
+      ]
+    },
+    {
+      "id": 201,
+      "question": "Как в Razor указать, что форма отправляется методом POST?",
+      "code": "Tag Helpers",
+      "options": [
+        "<form post=\"true\">",
+        "@Form.Method(\"post\")",
+        "<form method=\"post\" asp-action=\"Create\">"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "post=\"true\" — не стандартный атрибут",
+        "Form.Method не существует",
+        "method=\"post\" — стандартный способ"
+      ]
+    },
+    {
+      "id": 202,
+      "question": "Что делает .ToList() в LINQ?",
+      "code": "var list = query.ToList();",
+      "options": [
+        "Выполняет запрос и материализует результат в список",
+        "Сортирует по списку",
+        "Объединяет списки"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "ToList() выполняет отложенный запрос и создаёт List",
+        "сортировка — OrderBy",
+        "объединение — Concat или Union"
+      ]
+    },
+    {
+      "id": 203,
+      "question": "Как в SELECT использовать условие в выводе?",
+      "code": "Если Price > 100 — «дорого», иначе «норм»",
+      "options": [
+        "SELECT CASE WHEN Price > 100 THEN 'дорого' ELSE 'норм' END FROM Products",
+        "SELECT IF Price > 100 THEN 'дорого' FROM Products",
+        "SELECT Price > 100 ? 'дорого' : 'норм' FROM Products"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "CASE WHEN ... THEN ... ELSE ... END — условное выражение в SQL",
+        "IF — не в SELECT для значений",
+        "тернарный ? : — синтаксис C#, не SQL"
+      ]
+    },
+    {
+      "id": 204,
+      "question": "Как в Controller перенаправить на другой URL(для другого метода в этом же контроллере)?",
+      "code": "После создания сущности — на страницу списка",
+      "options": [
+        "return RedirectToAction(\"Index\");",
+        "return Redirect(\"Index\");",
+        "Response.Redirect(\"Index\");"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "RedirectToAction — редирект по имени действия",
+        "Redirect — для полного URL",
+        "Response.Redirect — WebForms, не Core"
+      ]
+    },
+    {
+      "id": 205,
+      "question": "Что выведет: int? n = null; Console.Write(n ?? 5);",
+      "code": "C# nullable",
+      "options": [
+        "null",
+        "5",
+        "0"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "?? возвращает правое значение при null",
+        "n null — оператор ?? даёт 5",
+        "0 — для default(int), не при ??"
+      ]
+    },
+    {
+      "id": 206,
+      "question": "Как удалить таблицу?",
+      "code": "Таблица Temp",
+      "options": [
+        "DROP TABLE Temp",
+        "DELETE TABLE Temp",
+        "REMOVE TABLE Temp"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "DROP TABLE — удаление структуры таблицы",
+        "DELETE удаляет строки, не таблицу",
+        "REMOVE не используется в SQL"
+      ]
+    },
+    {
+      "id": 207,
+      "question": "Как вывести список с в формате \"элемент, индекс_элемента\"?",
+      "code": "list — cписок объектов",
+      "options": [
+        "foreach (var (i,item) in list) { Console.WriteLine(\"{item}, {i}\"); }}",
+        "for (var i = 0; i < list.Count; i++) { Console.WriteLine(\$\"{item[i]}, {i}\"); }",
+        "list.ForEach((item) => Console.WriteLine(item))"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "т.к list это список объектов, а не список пар, то foreach (var (i,item) in list) не работает, т.к нельзя разобрать обычный объект на пару.",
+        "верный вариант",
+        "выводит только элементы без индекса"
+      ]
+    },
+    {
+      "id": 208,
+      "question": "Что вернёт: new[] { \"a\", \"b\" }.Contains(\"a\");",
+      "code": "LINQ",
+      "options": [
+        "false",
+        "true",
+        "\"a\""
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "\"a\" есть в массиве",
+        "Contains возвращает true при наличии элемента",
+        "Contains возвращает bool, не элемент"
+      ]
+    },
+    {
+      "id": 209,
+      "question": "Как объединить результаты двух SELECT в один набор?",
+      "code": "UNION",
+      "options": [
+        "SELECT Name FROM A + SELECT Name FROM B",
+        "SELECT Name FROM A UNION SELECT Name FROM B",
+        "SELECT Name FROM A JOIN B"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "+ не объединяет результаты запросов",
+        "UNION объединяет два набора строк",
+        "JOIN объединяет таблицы, не результаты SELECT"
+      ]
+    },
+    {
+      "id": 210,
+      "question": "Как в Razor сформировать ссылку на действие контроллера?",
+      "code": "Ссылка на Home/Index",
+      "options": [
+        "<a asp-controller=\"Home\" asp-action=\"Index\">Текст</a>",
+        "<a href=\"Home/Index\">Текст</a>",
+        "<a src=\"Home/Index\">Текст</a>"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "asp-controller и asp-action генерируют URL по маршрутам",
+        "href жёстко задан, не учитывает маршрутизацию",
+        "src — для ресурсов (img, script), не для ссылок"
+      ]
+    },
+    {
+      "id": 211,
+      "question": "Что выведет: switch(1) { case 1: Console.Write(\"A\"); break; default: Console.Write(\"B\"); break; }",
+      "code": "C#",
+      "options": [
+        "A",
+        "B",
+        "AB"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "case 1 совпадает — выполняется только эта ветка",
+        "default не выполняется при совпадении case",
+        "break выходит из switch, вторая ветка не выполняется"
+      ]
+    },
+    {
+      "id": 212,
+      "question": "Как в WHERE исключить строки по списку значений?",
+      "code": "Id не 1, 2, 3",
+      "options": [
+        "WHERE Id != (1, 2, 3)",
+        "WHERE Id NOT (1, 2, 3)",
+        "WHERE Id NOT IN (1, 2, 3)"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "!= не работает со списком",
+        "NOT без IN неверно",
+        "NOT IN (список) — исключение значений"
+      ]
+    },
+    {
+      "id": 213,
+      "question": "Как в Razor проверить, что коллекция не пустая?",
+      "code": "Model.Items",
+      "options": [
+        "@Model.Items.NotEmpty()",
+        "@if (Model.Items.Count > 0)",
+        "@if (Model.Items != null && Model.Items.Any())"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "NotEmpty() не стандартный метод",
+        "Count может быть недоступен (IEnumerable)",
+        "null-проверка и Any() — универсально"
+      ]
+    },
+    {
+      "id": 214,
+      "question": "Что вернёт: new[] { 2, 4, 6 }.Average();",
+      "code": "LINQ",
+      "options": [
+        "6",
+        "12",
+        "4"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "6 — максимальное, не среднее",
+        "12 — сумма",
+        "(2+4+6)/3 = 4"
+      ]
+    },
+    {
+      "id": 215,
+      "question": "Как получить минимальное значение в колонке?",
+      "code": "Колонка Price в Products",
+      "options": [
+        "SELECT MINIMUM(Price) FROM Products",
+        "SELECT TOP 1 Price FROM Products ORDER BY Price",
+        "SELECT MIN(Price) FROM Products"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "в SQL используется MIN, не MINIMUM",
+        "TOP 1 с ORDER BY тоже работает, но MIN проще",
+        "MIN — агрегатная функция для минимума"
+      ]
+    },
+    {
+      "id": 216,
+      "question": "Как в Razor передать параметр в ссылку на действие?",
+      "code": "Id продукта в URL",
+      "options": [
+        "<a href=\"Details?id=@Model.Id\">Подробнее</a>",
+        "@Url.Action(\"Details\", new { id = Model.Id })",
+        "<a asp-action=\"Details\" asp-route-id=\"@Model.Id\">Подробнее</a>"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "href с query — работает, но asp-route-id предпочтительнее",
+        "Url.Action возвращает строку, не тег",
+        "asp-route-id генерирует параметр маршрута"
+      ]
+    },
+    {
+      "id": 217,
+      "question": "Что выведет: var a = new[] { 1 }; Console.Write(a.Length);",
+      "code": "C#",
+      "options": [
+        "1",
+        "0",
+        "2"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "Length — количество элементов, один элемент — 1",
+        "массив не пустой",
+        "два элемента было бы при { 1, 2 }"
+      ]
+    },
+    {
+      "id": 218,
+      "question": "Как в SELECT ограничить результат по условию после группировки?",
+      "code": " ",
+      "options": [
+        "GROUP BY City WHERE COUNT(*) > 5",
+        "GROUP BY City HAVING COUNT(*) > 5",
+        "GROUP BY City HAVING COUNT(*)"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "WHERE фильтрует до группировки",
+        "HAVING — фильтр по результатам агрегации",
+        "HAVING без условия не фильтрует"
+      ]
+    },
+    {
+      "id": 219,
+      "question": "Что вернёт: \"hello\".ToUpper();",
+      "code": "C#",
+      "options": [
+        "hello",
+        "Hello",
+        "HELLO"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "ToUpper преобразует в верхний регистр",
+        "Hello — только первая буква, это не ToUpper",
+        "все символы в верхнем регистре"
+      ]
+    },
+    {
+      "id": 220,
+      "question": "Как в SELECT получить подстроку из колонки?",
+      "code": "SQL Server, первые 5 символов Name",
+      "options": [
+        "SELECT SUBSTR(Name, 1, 5) FROM Users",
+        "SELECT SUBSTRING(Name, 1, 5) FROM Users",
+        "SELECT STR(Name, 5) FROM Users"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "SUBSTR — Oracle/MySQL, в T-SQL — SUBSTRING",
+        "SUBSTRING(строка, начало, длина) — T-SQL",
+        "STR — преобразование числа в строку"
+      ]
+    },
+    {
+      "id": 221,
+      "question": "Как в Razor отобразить чекбокс для bool-свойства модели?",
+      "code": "Свойство IsActive",
+      "options": [
+        "<checkbox asp-for=\"IsActive\">",
+        "<input type=\"checkbox\" asp-for=\"IsActive\" />",
+        "@Html.CheckBox(\"IsActive\")"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 222,
+      "question": "Что выведет: Console.Write(\"ab\".Length);",
+      "code": "C#",
+      "options": [
+        "2",
+        "ab",
+        "0"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "Length — количество символов в строке",
+        "выводится число, не сама строка",
+        "строка не пустая"
+      ]
+    },
+    {
+      "id": 223,
+      "question": "Как в SELECT получить текущую дату сервера?",
+      "code": "SQL Server",
+      "options": [
+        "SELECT NOW()",
+        "SELECT CURRENT_DATE()",
+        "SELECT GETDATE()"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "NOW() — MySQL",
+        "CURRENT_DATE — стандарт SQL, в T-SQL иначе",
+        "GETDATE() — функция SQL Server"
+      ]
+    },
+    {
+      "id": 224,
+      "question": "Как сгруппировать по City и подсчитать количество пользователей в каждой группе?",
+      "code": "Группа по City из Users",
+      "options": [
+        "SELECT City, COUNT(*) FROM Users GROUP BY City",
+        "SELECT City, SUM(*) FROM Users GROUP BY City",
+        "SELECT City, COUNT(*) FROM Users BY City"
+      ],
+      "correctIndex": 0,
+      "explanations": ["GROUP BY с COUNT — подсчёт в группах", "SUM(*) не используется", "нужно GROUP BY, не BY"]
+    },
+    {
+      "id": 225,
+      "question": "Что выведет foreach (var n in new[] { 2, 2 }) Console.Write(n); ?",
+      "code": "C#",
+      "options": [
+        "4",
+        "22",
+        "2"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "foreach не суммирует, а перебирает",
+        "два элемента 2 и 2 выводятся подряд — 22",
+        "выводится оба элемента, не один"
+      ]
+    },
+    {
+      "id": 226,
+      "question": "Что выведет Length массива new[] { 1 } ?",
+      "code": "C#",
+      "options": [
+        "1",
+        "0",
+        "2"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "Length — количество элементов, один элемент — 1",
+        "массив не пустой",
+        "два элемента было бы при { 1, 2 }"
+      ]
+    },
+    {
+      "id": 227,
+      "question": "Как задать дефолтное значение для вывода свойства Name в Razor, если оно пустое?",
+      "code": "Если Model.Name пустой — показать «Без имени»",
+      "options": [
+        "@Model.Name.Default(\"Без имени\")",
+        "@(Model?.Name ?? \"Без имени\")",
+        "@Model.Name ?? \"Без имени\""
+      ],
+      "correctIndex": 1,
+      "explanations": ["Default не у string", "?? подставляет при null/пустоте; скобки для приоритета", "без ?. упадёт при null Model"]
+    },
+    {
+      "id": 228,
+      "question": "Как передать Id в параметр при создании ссылки на действие в Razor?",
+      "code": "Id продукта в URL",
+      "options": [
+        "<a href=\"Details?id=@Model.Id\">Подробнее</a>",
+        "@Url.Action(\"Details\", new { id = Model.Id })",
+        "<a asp-action=\"Details\" asp-route-id=\"@Model.Id\">Подробнее</a>"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "href с query — работает, но asp-route-id предпочтительнее",
+        "Url.Action возвращает строку, не тег",
+        "asp-route-id генерирует параметр маршрута"
+      ]
+    },
+    {
+      "id": 229,
+      "question": "Что будет выведено следующим кодом: if (false && true) { Console.Write(\"A\"); } else { Console.Write(\"B\"); }?",
+      "code": "C#",
+      "options": [
+        "B",
+        "A",
+        "AB"
+      ],
+      "correctIndex": 0,
+      "explanations": ["false && что угодно = false, выполняется else", "ветка if не выполняется", "выполняется только одна ветка"]
+    },
+    {
+      "id": 230,
+      "question": "Как объявить локальную переменную в Razor для использования в шаблоне?",
+      "code": "Переменная count",
+      "options": [
+        "@{ var count = 0; }",
+        "@var count = 0;",
+        "@(var count = 0)"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "@{} — блок кода для объявления переменных",
+        "@var — неверный синтаксис Razor",
+        "@() — для выражений с выводом, не объявлений"
+      ]
+    },
+    {
+      "id": 231,
+      "question": "Что вернёт \"hello\".ToUpper(); ?",
+      "code": "C#",
+      "options": [
+        "hello",
+        "Hello",
+        "HELLO"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "ToUpper преобразует в верхний регистр",
+        "Hello — только первая буква, это не ToUpper",
+        "все символы в верхнем регистре"
+      ]
+    },
+    {
+      "id": 232,
+      "question": "Что выведет for-цикл с break: for (int i = 0; i < 2; i++) { if (i == 1) break; Console.Write(i); } ?",
+      "code": "C#",
+      "options": [
+        "0",
+        "01",
+        "1"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "i=0: вывод 0; i=1: break до Write — выход",
+        "при i=1 выполняется break, 1 не выводится",
+        "0 выводится первым, не 1"
+      ]
+    },
+    {
+      "id": 233,
+      "question": "Какой SQL-командой удалить таблицу Temp целиком?",
+      "code": "Таблица Temp",
+      "options": [
+        "DROP TABLE Temp",
+        "DELETE TABLE Temp",
+        "REMOVE TABLE Temp"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "DROP TABLE — удаление структуры таблицы",
+        "DELETE удаляет строки, не таблицу",
+        "REMOVE не используется в SQL"
+      ]
+    },
+    {
+      "id": 234,
+      "question": "Как получить текущую дату сервера в SQL Server?",
+      "code": "SQL Server",
+      "options": [
+        "SELECT NOW()",
+        "SELECT CURRENT_DATE()",
+        "SELECT GETDATE()"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "NOW() — MySQL",
+        "CURRENT_DATE — стандарт SQL, в T-SQL иначе",
+        "GETDATE() — функция SQL Server"
+      ]
+    },
+    {
+      "id": 235,
+      "question": "Как сформировать в Razor ссылку на действие Index контроллера Home?",
+      "code": "Ссылка на Home/Index",
+      "options": [
+        "<a asp-controller=\"Home\" asp-action=\"Index\">Текст</a>",
+        "<a href=\"Home/Index\">Текст</a>",
+        "<a src=\"Home/Index\">Текст</a>"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "asp-controller и asp-action генерируют URL по маршрутам",
+        "href жёстко задан, не учитывает маршрутизацию",
+        "src — для ресурсов (img, script), не для ссылок"
+      ]
+    },
+    {
+      "id": 236,
+      "question": "Что будет выведено в switch(1) с case 1 и default?",
+      "code": "C#",
+      "options": [
+        "A",
+        "B",
+        "AB"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "case 1 совпадает — выполняется только эта ветка",
+        "default не выполняется при совпадении case",
+        "break выходит из switch, вторая ветка не выполняется"
+      ]
+    },
+    {
+      "id": 237,
+      "question": "Как отобразить флажок (checkbox) для bool свойства IsActive в Razor?",
+      "code": "Свойство IsActive",
+      "options": [
+        "<checkbox asp-for=\"IsActive\">",
+        "<input type=\"checkbox\" asp-for=\"IsActive\" />",
+        "@Html.CheckBox(\"IsActive\")"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 238,
+      "question": "Какой результат даёт Average() на new[] { 2, 4, 6 }?",
+      "code": "LINQ",
+      "options": [
+        "6",
+        "12",
+        "4"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "6 — максимальное, не среднее",
+        "12 — сумма",
+        "(2+4+6)/3 = 4"
+      ]
+    },
+    {
+      "id": 239,
+      "question": "Что вернёт new[] { \"a\", \"bb\", \"c\" }.OrderBy(s => s.Length).First(); ?",
+      "code": "LINQ",
+      "options": [
+        "c",
+        "a",
+        "bb"
+      ],
+      "correctIndex": 1,
+      "explanations": ["c имеет длину 1, как и a", "по длине: a(1), c(1), bb(2); First даёт a", "bb — самый длинный"]
+    },
+    {
+      "id": 240,
+      "question": "Как conditionally отобразить блок разметки в Razor при true в Model.HasItems?",
+      "code": "Показать блок, если Model.HasItems",
+      "options": [
+        "@Model.HasItems ? <ul>...</ul>",
+        "@show(Model.HasItems, \"<ul>...</ul>\")",
+        "@if (Model.HasItems) { <ul>...</ul> }"
+      ],
+      "correctIndex": 2,
+      "explanations": ["тернарный с разметкой сложнее в Razor", "show не существует", "if с блоком — стандартный способ"]
+    },
+    {
+      "id": 241,
+      "question": "Как ограничить количество строк в результате запроса до 5 в SQL Server?",
+      "code": "SQL Server — 5 записей",
+      "options": [
+        "SELECT * FROM Users LIMIT 5",
+        "SELECT * FROM Users MAX 5",
+        "SELECT TOP 5 * FROM Users"
+      ],
+      "correctIndex": 2,
+      "explanations": ["LIMIT — MySQL/PostgreSQL", "MAX не для ограничения выборки", "TOP — синтаксис SQL Server"]
+    },
+    {
+      "id": 242,
+      "question": "Что выведет цикл: int x = 2; do { Console.Write(x); x++; } while (x < 2); ?",
+      "code": "C# do-while",
+      "options": [
+        "2",
+        "12",
+        "ничего"
+      ],
+      "correctIndex": 0,
+      "explanations": ["do выполняется минимум раз: вывод 2, потом x=3, выход", "цикл не повторяется", "один проход есть"]
+    },
+    {
+      "id": 243,
+      "question": "Что выведет: var s = \"\"; if (string.IsNullOrEmpty(s)) Console.Write(\"Y\"); ?",
+      "code": "C#",
+      "options": [
+        "Y",
+        "ничего",
+        "s"
+      ],
+      "correctIndex": 0,
+      "explanations": ["пустая строка — IsNullOrEmpty true, выводится Y", "блок if выполняется", "выводится литерал Y"]
+    },
+    {
+      "id": 244,
+      "question": "Как в SELECT ограничить результат по условию после группировки?",
+      "code": "HAVING",
+      "options": [
+        "GROUP BY City WHERE COUNT(*) > 5",
+        "GROUP BY City HAVING COUNT(*) > 5",
+        "GROUP BY City HAVING COUNT(*)"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "WHERE фильтрует до группировки",
+        "HAVING — фильтр по результатам агрегации",
+        "HAVING без условия не фильтрует"
+      ]
+    },
+    {
+      "id": 245,
+      "question": "Как в Razor-форме связать поле ввода со свойством Price модели Product?",
+      "code": "Свойство Product.Price",
+      "options": [
+        "<input name=\"Price\" />",
+        "<input bind=\"Product.Price\" />",
+        "<input asp-for=\"Price\" />"
+      ],
+      "correctIndex": 2,
+      "explanations": ["name без asp-for не даёт полной привязки", "bind не Razor", "asp-for привязывает к свойству"]
+    },
+    {
+      "id": 246,
+      "question": "Какой результат вернёт вызов Sum() на new List<int> { 1, 2, 3 }?",
+      "code": "LINQ",
+      "options": [
+        "3",
+        "1",
+        "6"
+      ],
+      "correctIndex": 2,
+      "explanations": ["3 — количество элементов", "1 — первый элемент", "1+2+3=6"]
+    },
+    {
+      "id": 247,
+      "question": "Как определить в контроллере, что запрос поступил по методу POST?",
+      "code": "ASP.NET Core",
+      "options": [
+        "if (Request.IsPost)",
+        "Request.Type == Post",
+        "if (Request.Method == \"POST\") или [HttpPost] на действии"
+      ],
+      "correctIndex": 2,
+      "explanations": ["IsPost не стандартное свойство", "Type == Post неверно", "[HttpPost] ограничивает действие"]
+    },
+    {
+      "id": 248,
+      "question": "Как выбрать записи с датой Created в указанном периоде?",
+      "code": "Created между 2024-01-01 и 2024-12-31",
+      "options": [
+        "WHERE Created IN ('2024-01-01', '2024-12-31')",
+        "WHERE Created RANGE '2024-01-01' TO '2024-12-31'",
+        "WHERE Created BETWEEN '2024-01-01' AND '2024-12-31'"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "IN — для списка дискретных значений",
+        "RANGE TO — не синтаксис SQL",
+        "BETWEEN AND — для диапазона включительно"
+      ]
+    },
+    {
+      "id": 249,
+      "question": "Какой элемент получим из new[] { 1, 2, 3 }.Skip(1).Take(1).First(); ?",
+      "code": "LINQ",
+      "options": [
+        "2",
+        "1",
+        "3"
+      ],
+      "correctIndex": 0,
+      "explanations": ["Skip(1) пропускает 1, Take(1) берёт один — это 2", "1 пропущен Skip", "3 не входит в Take(1)"]
+    },
+    {
+      "id": 250,
+      "question": "Каким образом в запросе SELECT назначить алиас колонке?",
+      "code": "Колонка Name как FullName",
+      "options": [
+        "SELECT Name FullName FROM Users",
+        "SELECT Name AS \"FullName\" FROM Users",
+        "SELECT Name AS FullName FROM Users"
+      ],
+      "correctIndex": 2,
+      "explanations": ["пробел может работать, но AS явнее", "кавычки для зарезервированных имён", "AS псевдоним — стандартный синтаксис"]
+    },
+    {
+      "id": 251,
+      "question": "Как обновить записи в таблице по условию на дату?",
+      "code": "Status = 'Done' где Created < '2024-01-01'",
+      "options": [
+        "UPDATE Tasks SET Status = 'Done' IF Created < '2024-01-01'",
+        "SET Tasks.Status = 'Done' WHERE Created < '2024-01-01'",
+        "UPDATE Tasks SET Status = 'Done' WHERE Created < '2024-01-01'"
+      ],
+      "correctIndex": 2,
+      "explanations": ["в SQL используется WHERE, не IF", "нужен UPDATE в начале", "UPDATE SET ... WHERE — корректный синтаксис"]
+    },
+    {
+      "id": 252,
+      "question": "Как в UPDATE скопировать значения Name из другой таблицы TempData по Id?",
+      "code": "Обновить Users.Name из TempData по Id",
+      "options": [
+        "UPDATE Users SET Name = SELECT Name FROM TempData",
+        "UPDATE Users SET Name = TempData.Name",
+        "UPDATE u SET u.Name = t.Name FROM Users u JOIN TempData t ON u.Id = t.Id"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "подзапрос в SET требует скобок и связи по Id",
+        "прямая ссылка на таблицу без JOIN неверна",
+        "UPDATE с FROM и JOIN — корректный способ в T-SQL"
+      ]
+    },
+    {
+      "id": 253,
+      "question": "Как исключить из результата строки с определёнными Id (1,2,3)?",
+      "code": "Id не 1, 2, 3",
+      "options": [
+        "WHERE Id != (1, 2, 3)",
+        "WHERE Id NOT (1, 2, 3)",
+        "WHERE Id NOT IN (1, 2, 3)"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "!= не работает со списком",
+        "NOT без IN неверно",
+        "NOT IN (список) — исключение значений"
+      ]
+    },
+    {
+      "id": 254,
+      "question": "Как в Razor проверить наличие элементов в коллекции Model.Items?",
+      "code": "Model.Items",
+      "options": [
+        "@Model.Items.NotEmpty()",
+        "@if (Model.Items.Count > 0)",
+        "@if (Model.Items != null && Model.Items.Any())"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "NotEmpty() не стандартный метод",
+        "Count может быть недоступен (IEnumerable)",
+        "null-проверка и Any() — универсально"
+      ]
+    },
+    {
+      "id": 255,
+      "question": "Как в форме Razor создать input для свойства Name из модели?",
+      "code": "Tag Helpers",
+      "options": [
+        "<input name=\"Model.Name\" />",
+        "<input bind=\"Name\" />",
+        "<input asp-for=\"Name\" />"
+      ],
+      "correctIndex": 2,
+      "explanations": ["name может работать, но без привязки", "bind — не Razor Tag Helper", "asp-for привязывает к свойству модели"]
+    },
+    {
+      "id": 256,
+      "question": "Как отфильтровать строки, где колонка не содержит NULL?",
+      "code": "Колонка Email",
+      "options": [
+        "WHERE Email != NULL",
+        "WHERE Email IS NOT NULL",
+        "WHERE NOT NULL(Email)"
+      ],
+      "correctIndex": 1,
+      "explanations": ["с NULL используется IS, не = или !=", "IS NOT NULL — корректная проверка", "NOT NULL(Email) неверный синтаксис"]
+    },
+    {
+      "id": 257,
+      "question": "Как вывести каждый элемент списка вместе с его порядковым номером?",
+      "code": "list — cписок объектов",
+      "options": [
+        "foreach (var (i,item) in list) { Console.WriteLine(\"{item}, {i}\"); }}",
+        "for (var i = 0; i < list.Count; i++) { Console.WriteLine(\$\"{item[i]}, {i}\"); }",
+        "list.ForEach((item) => Console.WriteLine(item))"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "т.к list это список объектов, а не список пар, то foreach (var (i,item) in list) не работает, т.к нельзя разобрать обычный объект на пару.",
+        "верный вариант",
+        "выводит только элементы без индекса"
+      ]
+    },
+    {
+      "id": 258,
+      "question": "Как перенаправить пользователя на действие Index из контроллера после операции?",
+      "code": "После создания сущности — на страницу списка",
+      "options": [
+        "return RedirectToAction(\"Index\");",
+        "return Redirect(\"Index\");",
+        "Response.Redirect(\"Index\");"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "RedirectToAction — редирект по имени действия",
+        "Redirect — для полного URL",
+        "Response.Redirect — WebForms, не Core"
+      ]
+    },
+    {
+      "id": 259,
+      "question": "Как проверить в WHERE, содержит ли колонка Name подстроку?",
+      "code": "SQL Server, колонка Name",
+      "options": [
+        "WHERE Name CONTAINS 'text'",
+        "WHERE Name IN 'text'",
+        "WHERE Name LIKE '%text%'"
+      ],
+      "correctIndex": 2,
+      "explanations": ["CONTAINS для полнотекстового поиска", "IN для списка значений", "LIKE '%text%' — подстрока в любом месте"]
+    },
+    {
+      "id": 260,
+      "question": "Как указать метод POST для формы в Razor Tag Helpers?",
+      "code": "Tag Helpers",
+      "options": [
+        "<form post=\"true\">",
+        "@Form.Method(\"post\")",
+        "<form method=\"post\" asp-action=\"Create\">"
+      ],
+      "correctIndex": 2,
+      "explanations": [
+        "post=\"true\" — не стандартный атрибут",
+        "Form.Method не существует",
+        "method=\"post\" — стандартный способ"
+      ]
+    },
+    {
+      "id": 261,
+      "question": "Как в SELECT сложить значения двух колонок Price и Tax?",
+      "code": "Price и Tax в таблице Orders",
+      "options": [
+        "SELECT SUM(Price, Tax) FROM Orders",
+        "SELECT Price + Tax AS Total FROM Orders",
+        "SELECT Price, Tax, Total FROM Orders"
+      ],
+      "correctIndex": 1,
+      "explanations": ["SUM принимает один аргумент", "арифметика + в SELECT", "Total — не колонка, нужен AS"]
+    },
+    {
+      "id": 262,
+      "question": "Что выведет Console.Write(\"ab\".Length); ?",
+      "code": "C#",
+      "options": [
+        "2",
+        "ab",
+        "0"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "Length — количество символов в строке",
+        "выводится число, не сама строка",
+        "строка не пустая"
+      ]
+    },
+    {
+      "id": 263,
+      "question": "Как взять подстроку первых 5 символов из Name в T-SQL?",
+      "code": "SQL Server, первые 5 символов Name",
+      "options": [
+        "SELECT SUBSTR(Name, 1, 5) FROM Users",
+        "SELECT SUBSTRING(Name, 1, 5) FROM Users",
+        "SELECT STR(Name, 5) FROM Users"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "SUBSTR — Oracle/MySQL, в T-SQL — SUBSTRING",
+        "SUBSTRING(строка, начало, длина) — T-SQL",
+        "STR — преобразование числа в строку"
+      ]
+    },
+    {
+      "id": 264,
+      "question": "Как написать комментарий в Razor, который не попадёт в генерируемый HTML?",
+      "code": "Серверный комментарий",
+      "options": [
+        "@* комментарий *@",
+        "<!-- комментарий -->",
+        "@// комментарий"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "@* *@ — серверный комментарий Razor, не в HTML",
+        "<!-- --> — HTML-комментарий, попадёт в разметку",
+        "@// — может интерпретироваться как код"
+      ]
+    },
+    {
+      "id": 265,
+      "question": "Как использовать условное выражение в SELECT для вывода текста по цене?",
+      "code": "Если Price > 100 — «дорого», иначе «норм»",
+      "options": [
+        "SELECT CASE WHEN Price > 100 THEN 'дорого' ELSE 'норм' END FROM Products",
+        "SELECT IF Price > 100 THEN 'дорого' FROM Products",
+        "SELECT Price > 100 ? 'дорого' : 'норм' FROM Products"
+      ],
+      "correctIndex": 0,
+      "explanations": [
+        "CASE WHEN ... THEN ... ELSE ... END — условное выражение в SQL",
+        "IF — не в SELECT для значений",
+        "тернарный ? : — синтаксис C#, не SQL"
+      ]
+    },
+    {
+      "id": 266,
+      "question": "Что выведет Console.Write(n ?? 5) при int? n = null; ?",
+      "code": "C# nullable",
+      "options": [
+        "null",
+        "5",
+        "0"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "?? возвращает правое значение при null",
+        "n null — оператор ?? даёт 5",
+        "0 — для default(int), не при ??"
+      ]
+    },
+    {
+      "id": 267,
+      "question": "Что вернёт Contains(\"a\") на new[] { \"a\", \"b\" }?",
+      "code": "LINQ",
+      "options": [
+        "false",
+        "true",
+        "\"a\""
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "\"a\" есть в массиве",
+        "Contains возвращает true при наличии элемента",
+        "Contains возвращает bool, не элемент"
+      ]
+    },
+    {
+      "id": 268,
+      "question": "Как принять комплексный объект из JSON-тела POST в API контроллере?",
+      "code": "public class CreateUserDto { public string Name { get; set; } }",
+      "options": [
+        "public IActionResult Create(string json) { /* парсить JSON вручную */ }",
+        "public IActionResult Create([FromBody] CreateUserDto dto) { /* использовать dto */ }",
+        "public IActionResult Create() { var dto = new CreateUserDto(); /* заполнить вручную */ }"
+      ],
+      "correctIndex": 1,
+      "explanations": [
+        "строка json требует ручного парсинга и обходит модель-привязку",
+        "атрибут [FromBody] (или просто параметр модели в API-контроллере) позволяет фреймворку самостоятелно разобрать JSON — верно",
+        "создание dto вручную не читает тело запроса"
+      ]
+    },
+    {
+      "id": 269,
+      "question": "Какой вариант неверный для получения параметра Id из URL в ProductController через атрибут HttpGet?",
+      "code": "GET /Product/Details/5",
+      "options": [
+        "[HttpGet(\"Details/{id}\")] public IActionResult Details(int id)",
+        "[HttpGet] public IActionResult Details(int id)",
+        "[HttpGet(\"Details/{id:int}\")] public IActionResult Details(int? id = Request.Id)"
+      ],
+      "correctIndex": 1,
+      "explanations": ["явный маршрут с id — корректно", "базовый [HttpGet] с параметром — корректно (нужно выбрать неправильный)", "Request.Id не используется для привязки параметра"]
     }
   ];
 
